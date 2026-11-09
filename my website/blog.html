@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Emmanuel Chimmeremeze</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230066cc%22/><text y=%22.9em%22 x=%2218%22 font-family=%22sans-serif%22 font-size=%2265%22 font-weight=%22bold%22 fill=%22%23ffffff%22>E</text><circle cx=%2272%22 cy=%2250%22 r=%2210%22 fill=%22%234da6ff%22/></svg>">
+</head>
+<body>
+
+    <div class="app-layout">
+        
+        <!-- MATCHING SIDEBAR PANEL -->
+        <aside class="sidebar">
+            <h1>Emmanuel Chimmeremeze</h1>
+            <p class="tagline">CS Student @ UNN</p>
+            
+            <nav class="site-nav">
+                <a href="index.html" id="nav-home">Home</a>
+                <a href="blog.html" id="nav-blog">Blog</a>
+                <a href="shelves.html" id="nav-shelves">Shelves</a>
+                <a href="projects.html" id="nav-projects">Projects</a>
+                <a href="about.html" id="nav-about">About Me</a>
+                <a href="contact.html" id="nav-contact">Questions</a>
+            </nav>
+
+            <div class="utility-tray">
+                <div class="tray-section">
+                    <p class="tray-label">Interface</p>
+                    <button id="theme-toggle" class="theme-btn">🌙</button>
+                </div>
+                <div class="tray-section">
+                    <p class="tray-label">Text Accent Ink</p>
+                    <div class="color-picker-grid">
+                        <div class="color-dot" style="background: #222222;" data-color="#222222"></div>
+                        <div class="color-dot" style="background: #0066cc;" data-color="#0066cc"></div>
+                        <div class="color-dot" style="background: #00875a;" data-color="#00875a"></div>
+                        <div class="color-dot" style="background: #e65c00;" data-color="#e65c00"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- RIGHT READING CONTENT BLOCK -->
+        <main class="main-content">
+            <section class="content-section">
+                <h1>Blog Logs</h1>
+                <p class="section-intro">Raw, unpolished thoughts on coding, tech ecosystems, and building software from Nsukka.</p>
+                
+                <div class="post-list">
+                    <div class="post-item">
+                        <span class="post-date">Nov 2026</span>
+                        <div class="post-details">
+                            <a href="#" class="post-title">Overcoming "Code Intimidation" in a 200-Level UNN Classroom</a>
+                            <p class="post-summary">Why seeing my classmates far ahead of me almost made me quit, and how I realized everyone has their own timeline.</p>
+                        </div>
+                    </div>
+                    <div class="post-item">
+                        <span class="post-date">Nov 2026</span>
+                        <div class="post-details">
+                            <a href="#" class="post-title">The Paystack Blueprint: Shola Akinlade’s Middle-Class Hustle</a>
+                            <p class="post-summary">A personal case study analyzing how a simple coding experiment in a Lagos apartment turned into a $200M Stripe acquisition.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- BRAIN ENGINE SCRIPT -->
+    <script>
+        document.getElementById("nav-blog").classList.add("active");
+
+        const toggleButton = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        toggleButton.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        toggleButton.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            let newTheme = theme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            toggleButton.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        const colorDots = document.querySelectorAll('.color-dot');
+        const savedColor = localStorage.getItem('ink-color') || '#222222';
+        document.documentElement.style.setProperty('--text-main', savedColor);
+        colorDots.forEach(dot => {
+            if(dot.getAttribute('data-color') === savedColor) dot.classList.add('active');
+            dot.addEventListener('click', (e) => {
+                colorDots.forEach(d => d.classList.remove('active'));
+                const selectedColor = e.target.getAttribute('data-color');
+                document.documentElement.style.setProperty('--text-main', selectedColor);
+                localStorage.setItem('ink-color', selectedColor);
+                e.target.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
+
